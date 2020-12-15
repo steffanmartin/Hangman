@@ -109,16 +109,16 @@ public class Hangman {
             Scanner sc = new Scanner(System.in);
             System.out.println("Select category: \n1 Celebrities \n2 Countries \n3 Movies \n(Press X to exit game)");
             do {
-                if (Character.toUpperCase(sc.next().charAt(0)) == 'X'){
-                    System.exit(0);
-                } else {
-                    try {
-                        int n = Integer.parseInt(sc.nextLine());
-                        words = getWords(n);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please select a category");
-                        continue;
+                try {
+                    char n = Character.toUpperCase(sc.next().charAt(0));
+                    if (n == 'X'){
+                        System.exit(0);
+                    } else {
+                        words = getWords(Integer.parseInt(Character.toString(n)));
                     }
+                } catch (NumberFormatException e) {
+                    System.out.println("Please select a category");
+                    continue;
                 }
             } while (words.isEmpty());
             Random random = new Random();
