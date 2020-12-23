@@ -36,6 +36,16 @@ public class Hangman {
         System.out.println("|");
         System.out.println("==============");
         System.out.println();
+        // Prints hint character if count is equal to 4 and less than
+        // half of characters guessed.
+        if (count == LIVES - 1 && rem() > word.length() / 2){
+            for (int i = 0; i < word.length(); i++){
+                if (!chars.contains(word.charAt(i))){
+                    System.out.println("Hint: " + word.charAt(i));
+                    break;
+                }
+            }
+        }
         // Prints entire word if count is equal to 5
         if (count == LIVES){
             for (char ch : word.toCharArray()){
@@ -53,16 +63,6 @@ public class Hangman {
             }
         }
         System.out.println();
-        // Prints hint character if count is equal to 4 and less than
-        // half of characters guessed.
-        if (count == LIVES - 1 && rem() > word.length() / 2){
-            for (int i = 0; i < word.length(); i++){
-                if (!chars.contains(word.charAt(i))){
-                    System.out.println("Hint: " + word.charAt(i));
-                    break;
-                }
-            }
-        }
     }
     // Static method that returns the remaining number of characters
     public static int rem(){
@@ -91,6 +91,8 @@ public class Hangman {
             fileName += "countries";
         else if (n == 3)
             fileName += "movies";
+        else if (n == 4)
+            fileName += "tvshows";
         try (Stream<String> lines = Files.lines(Paths.get(fileName))) {
             _words = lines.collect(Collectors.toList());
         } catch (Exception ex){
@@ -107,7 +109,8 @@ public class Hangman {
             words.clear();
             chars.clear();
             Scanner sc = new Scanner(System.in);
-            System.out.println("Select category: \n1 Celebrities \n2 Countries \n3 Movies \n(Press X to exit game)");
+            System.out.println("Select category: \n1 Celebrities \n2 Countries \n3 Movies \n4 TV Shows " +
+                    "\n(Press X to exit game)");
             do {
                 try {
                     char n = Character.toUpperCase(sc.next().charAt(0));
